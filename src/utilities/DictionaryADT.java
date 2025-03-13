@@ -1,81 +1,87 @@
 package utilities;
 
-/**
- * DictionaryADT.java
- *
- * @author Mace Howald, Ethan Van De Woestyne
- * @version 1.1
- * 
- *          Class Definition: This interface represents the public contract for
- *          the implementation of Dictionary for the DictionaryADT Lab.
- */
+import exceptions.DuplicateKeyException;
 
-public interface DictionaryADT<K, V>
+/**
+* DictionaryADT.java
+*
+* @author kitty
+* @version 1.1
+* 
+* Class Definition: This interface represents the public contract for the
+* implementation of Dictionary for the DictionaryADT Lab. This data type 
+* will store data in (key, value) pairs and keys must be unique. 
+*/
+
+public interface DictionaryADT<K,V>
 {
 	/**
-	 * Returns the number of key-value pairs in the dictionary
+	 * Constructor method to create a new Dictionary object.
 	 * 
-	 * @return the number of key-value pairs in the dictionary
+	 * Precondition: None.
 	 * 
-	 * Post: Returns the size of the dictionary
+	 * Postcondition: A dictionary object is created and its size is 
+	 * initialized to the value in the argument, or a default of 10.
+	 * 
+	 * @param size Optional: the size of the new dictionary, default is 10.
 	 */
-	int size();
-	
-	/**
-	 * Returns true if the dictionary is empty
-	 * 
-	 * @return true if the dictionary is empty
-	 * 
-	 * Post: Returns true if the dictionary is empty, false if not.
-	 */
-	boolean isEmpty();
-	
-	
-	/**
-	 * Returns true if the dictionary contains a specified key.
-	 * 
-	 * @param Key The specified to key to check for in the dictionary
-	 * @return true if the specified key is found, false if not.
-	 * 
-	 * Pre: Key is not null.
-	 * Post: Returns true if the specified key is found, false if not.
-	 */
-	boolean containsKey(Object Key);
+	public void create( int size );
 
 	/**
-	 * Returns the value associated with the specified key in the dictionary.
-	 *
-	 * @param key The key whose associated value is to be returned
-	 * @return The value associated with the specified key, or null if the key is not found
-	 *
-	 * Pre: Key is not null.
-	 * Post: Returns the value associated with the specified key, or null if the key is not found.
+	 * Mutator method to insert a new key-value pair into the Dictionary.
+	 * 
+	 * Precondition: A valid dictionary object exists and non-null values
+	 * are passed as arguments.
+	 * 
+	 * Postcondition: The new key-value pair is added to the Dictionary.
+	 * 
+	 * @param K key
+	 * @param V value
+	 * @return true if key-value pair has been added successfully.
+	 * 
+	 * @throws DuplicateKeyException is thrown if key already exist.
 	 */
-	V get(Object key);
+	public boolean insert( K key, V value ) throws DuplicateKeyException;
 
 	/**
-	 * Associates the specified value with the specified key in the dictionary, or
-	 * updates it if the key already exists.
-	 *
-	 * @param key The key with which the specified value is to be associated
-	 * @param value The value to be associated with the specified key
-	 * @return The previous value associated with the key, or null if there was no mapping
-	 *
-	 * Pre: Key and value are not null.
-	 * Post: The key-value pair is stored in the dictionary. If the key already existed,
-	 *       its value is updated and the old value is returned.
+	 * Mutator method to remove a key-value pair from the Dictionary.
+	 * 
+	 * Precondition: A valid dictionary object exists and a non-null value
+	 * is passed as argument.
+	 * 
+	 * Postcondition: The key-value pair is deleted from the Dictionary.
+	 * 
+	 * @param K key
+	 * @return the value of the key removed, null if key does not exist.
 	 */
-	V put(K key, V value);
-	
+	public V remove( K key );
+
 	/**
-	 * Removes the key-value pair for the specified key from the dictionary if present.
-	 *
-	 * @param key The key whose mapping is to be removed from the dictionary
-	 * @return The value previously associated with the key, or null if the key is not found
-	 *
-	 * Pre: Key is not null.
-	 * Post: If the key was found, the key-value pair is removed from the dictionary
-	 *       and the value is returned. If the key was not found, null is returned.
+	 * Mutator method to update a key-value pair from the Dictionary.
+	 * 
+	 * Precondition: A valid dictionary object exists and a non-null value
+	 * is passed as argument.
+	 * 
+	 * Postcondition: The value of the key is changed in the Dictionary.
+	 * 
+	 * @param K key
+	 * @param V the new value
+	 * @return true if key-value pair has been changed successfully, or 
+	 * false if key does not exist.
 	 */
-	V remove(Object key);
+	public boolean update( K key, V value );
+
+	/**
+	 * Accessor method to retrieve the value of a key from the Dictionary.
+	 * 
+	 * Precondition: A valid dictionary object exists and a non-null value
+	 * is passed as argument.
+	 * 
+	 * Postcondition: The value of the key is returned from the Dictionary.
+	 * 
+	 * @param K key
+	 * @return the value of the key, null if key does not exist.
+	 */
+	public V lookup( K key );
+
 }
