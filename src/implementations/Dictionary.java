@@ -5,6 +5,18 @@ import java.util.ArrayList;
 import exceptions.DuplicateKeyException;
 import utilities.DictionaryADT;
 
+/**
+* Dictionary.java
+*
+* @author Mace Howald & ...
+* @version 1.2
+* 
+* Class Definition: This interface is the implementation
+* of the Dictionary for the DictionaryADT Lab. This data type 
+* will store data in (key, value) pairs and keys must be unique. 
+*/
+
+
 public class Dictionary<K,V> implements DictionaryADT<K,V>
 {
 	// constant
@@ -34,8 +46,17 @@ public class Dictionary<K,V> implements DictionaryADT<K,V>
 	}
 	@Override
 	public boolean insert(K key, V value) throws DuplicateKeyException {
-		// TODO Auto-generated method stub
-		return false;
+		if (key == null || value == null) {
+			return false; // Return false if null
+		}
+		
+		if (keys.contains(key)) {
+			throw new DuplicateKeyException();
+		}
+		
+		keys.add(key);
+		values.add(value);
+		return true;
 	}
 	@Override
 	public V remove(K key) {
