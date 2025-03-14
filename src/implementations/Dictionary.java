@@ -26,6 +26,10 @@ public class Dictionary<K,V> implements DictionaryADT<K,V>
 	private ArrayList<K> keys;
 	private ArrayList<V> values;
 	
+	
+	// Both the create method and constructors seem to do the same thing but the DictionartADT wants the create method
+	// and the DictionaryUnitTest wants the constructors
+	
 	// Constructor to initialize with a specified size
     public Dictionary(int size) {
         keys = new ArrayList<>(size);
@@ -42,8 +46,16 @@ public class Dictionary<K,V> implements DictionaryADT<K,V>
 	@Override
 	public void create(int size) {
 		// TODO Auto-generated method stub
-		
+		if (size > 0) {
+			keys = new ArrayList<>(size);
+	        values = new ArrayList<>(size);
+		} else {
+			keys = new ArrayList<>(DEFAULT_SIZE);
+	        values = new ArrayList<>(DEFAULT_SIZE);
+		}
 	}
+	
+	
 	@Override
 	public boolean insert(K key, V value) throws DuplicateKeyException {
 		if (key == null || value == null) {
@@ -51,7 +63,7 @@ public class Dictionary<K,V> implements DictionaryADT<K,V>
 		}
 		
 		if (keys.contains(key)) {
-			throw new DuplicateKeyException();
+			throw new DuplicateKeyException(); // Throw exception if duplicate key
 		}
 		
 		keys.add(key);
