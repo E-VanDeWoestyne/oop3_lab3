@@ -84,8 +84,12 @@ public class Dictionary<K,V> implements DictionaryADT<K,V>
 	
 	@Override
 	public boolean update(K key, V value) {
-		// TODO Auto-generated method stub
-		return false;
+	    if (keys.contains(key)) {
+	        int index = keys.indexOf(key);
+	        values.set(index, value);
+	        return true;
+	    }
+	    return false;
 	}
 	@Override
 	public V lookup(K key) {
