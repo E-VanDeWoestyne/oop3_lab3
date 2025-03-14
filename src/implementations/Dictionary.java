@@ -70,11 +70,18 @@ public class Dictionary<K,V> implements DictionaryADT<K,V>
 		values.add(value);
 		return true;
 	}
+	
 	@Override
 	public V remove(K key) {
-		// TODO Auto-generated method stub
+		if (keys.contains(key)) { // check if key exists
+			int index = keys.indexOf(key); // set index based on key
+			keys.remove(index); // remove key
+			return values.remove(index); // return removed value
+		}
 		return null;
 	}
+	
+	
 	@Override
 	public boolean update(K key, V value) {
 		// TODO Auto-generated method stub
